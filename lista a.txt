@@ -1,0 +1,2 @@
+lst_a = ["adam", "Ewa", "wojtek", "Robert", "marcin", "michał"]
+lst_b = [firstname.capitalize() for firstname in lst_a]

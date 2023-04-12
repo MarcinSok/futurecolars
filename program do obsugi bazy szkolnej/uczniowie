@@ -1,0 +1,82 @@
+class User:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+
+class Student(User):
+    def __init__(self, name, surname, class_name):
+        super().__init__(name, surname)
+        self.class_name = class_name
+
+class Teacher(User):
+    def __init__(self, name, surname, subject, classes):
+        super().__init__(name, surname)
+        self.subject = subject
+        self.classes = classes
+
+class Guardian(User):
+    def __init__(self, name, surname, class_name):
+        super().__init__(name, surname)
+        self.class_name = class_name
+
+students = []
+teachers = []
+guardians = []
+
+def create_student():
+    name, surname = input("Podaj imię i nazwisko ucznia: ").split()
+    class_name = input("Podaj nazwę klasy: ")
+    students.append(Student(name, surname, class_name))
+    print("Uczeń dodany.")
+
+def create_teacher():
+    name, surname = input("Podaj imię i nazwisko nauczyciela: ").split()
+    subject = input("Podaj nazwę przedmiotu: ")
+    classes = []
+    while True:
+        class_name = input("Podaj nazwę klasy (pusta linia kończy dodawanie): ")
+        if not class_name:
+            break
+        classes.append(class_name)
+    teachers.append(Teacher(name, surname, subject, classes))
+    print("Nauczyciel dodany.")
+
+def create_guardian():
+    name, surname = input("Podaj imię i nazwisko wychowawcy: ").split()
+    class_name = input("Podaj nazwę prowadzonej klasy: ")
+    guardians.append(Guardian(name, surname, class_name))
+    print("Wychowawca dodany.")
+
+def manage_class():
+    class_name = input("Podaj nazwę klasy: ")
+    print(f"Uczniowie klasy {class_name}:")
+    for student in students:
+        if student.class_name == class_name:
+            print(f"- {student.name} {student.surname}")
+    print(f"Wychowawca klasy {class_name}:")
+    for guardian in guardians:
+        if guardian.class_name == class_name:
+            print(f"- {guardian.name} {guardian.surname}")
+
+def manage_student():
+    name, surname = input("Podaj imię i nazwisko ucznia: ").split()
+    for student in students:
+        if student.name == name and student.surname == surname:
+            print(f"Lekcje ucznia {student.name} {student.surname}:")
+            for teacher in teachers:
+                if student.class_name in teacher.classes:
+                    print(f"- {teacher.name} {teacher.surname} ({teacher.subject})")
+
+def manage_teacher():
+    name, surname = input("Podaj imię i nazwisko nauczyciela: ").split()
+    print(f"Klasy prowadzone przez nauczyciela {name} {surname}:")
+    for teacher in teachers:
+        if teacher.name == name and teacher.surname == surname:
+            for class_name in teacher.classes:
+                print(f"- {class_name}")
+
+def manage_guardian():
+    name, surname = input("Podaj imię i nazwisko wychowawcy: ").split()
+    print(f"Uczniowie prowadzeni przez wychowawcę {name} {surname}:")
+    for guardian in guardians:
+        if guardian.name == name and guardian.surname == surname:
