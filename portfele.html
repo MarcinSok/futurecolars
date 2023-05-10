@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfele</title>
+</head>
+<body>
+    <h1>Publicznie dostępne portfele</h1>
+    <form method="POST" action="{{ url_for('portfele') }}">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.wallet_name.label }} {{ form.wallet_name(size=20) }}
+        </div>
+        <div>
+            {{ form.time_range.label }} {{ form.time_range }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</body>
+</html>

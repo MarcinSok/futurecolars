@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strona Główna</title>
+</head>
+<body>
+    <h1>Informacje na temat kryptowalut</h1>
+    <table>
+        <tr>
+            <th>Symbol</th>
+            <th>Nazwa</th>
+            <th>Aktualna cena</th>
+            <th>Skup</th>
+            <th>Sprzedaż</th>
+            <th>Wykres dobowy</th>
+            <th>Wykres tygodniowy</th>
+            <th>Wykres miesięczny</th>
+        </tr>
+        {% for crypto in crypto_data %}
+        <tr>
+            <td>{{ crypto.symbol }}</td>
+            <td>{{ crypto.name }}</td>
+            <td>{{ crypto.current_price }}</td>
+            <td>{{ buy_sell_data[crypto.symbol].buy }}</td>
+            <td>{{ buy_sell_data[crypto.symbol].sell }}</td>
+            <td><img src="{{ url_for('static', filename=crypto.symbol+'.png') }}"></td>
+            <td><img src="{{ url_for('static', filename=crypto.symbol+'_weekly.png') }}"></td>
+            <td><img src="{{ url_for('static', filename=crypto.symbol+'_monthly.png') }}"></
+
