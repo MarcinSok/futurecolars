@@ -5,6 +5,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import InputRequired
 
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'secret-key'  # Klucz do obsługi formularza (zmień na swój własny)
 
 @app.route("/")
 def index():
@@ -19,24 +22,19 @@ def index():
         "litecoin": {"buy": 150, "sell": 155},
     }
 
-    # Wygeneruj wykresy dla wybranych kryptowalut
-    for crypto in crypto_data:
-        symbol = crypto["symbol"]
-        prices = [100, 200, 300]  # Przykładowe dane wykresu (dla uproszczenia)
-        plt.plot(prices)
-        plt.title(f"Wykres dla {symbol}")
-        plt.xlabel("Okres")
-        plt.ylabel("Cena")
-        plt.savefig(f"static/{symbol}.png")  # Zapisz wykres jako plik statyczny
+    # # Wygeneruj wykresy dla wybranych kryptowalut
+    # for crypto in crypto_data:
+    #     symbol = crypto["symbol"]
+    #     prices = [100, 200, 300]  # Przykładowe dane wykresu (dla uproszczenia)
+    #     plt.plot(prices)
+    #     plt.title(f"Wykres dla {symbol}")
+    #     plt.xlabel("Okres")
+    #     plt.ylabel("Cena")
+    #     plt.savefig(f"static/{symbol}.png")  # Zapisz wykres jako plik statyczny
 
     return render_template("index.html", crypto_data=crypto_data, buy_sell_data=buy_sell_data)
 
 
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'secret-key'  # Klucz do obsługi formularza (zmień na swój własny)
-
-# ...
 
 class WalletForm(FlaskForm):
     wallet_name = StringField('Nazwa portfela', validators=[InputRequired()])
@@ -71,7 +69,7 @@ crypto_data = [
     {"symbol": "BTC", "name": "Bitcoin", "price": 12000},
     {"symbol": "ETH", "name": "Ethereum", "price": 7800},
     {"symbol": "LTC", "name": "Litecoin", "price": 350},
-    {"symbol": "Doge", "name": "Dogecoin" "price": 0,60}
+    {"symbol": "Doge", "name": "Dogecoin", "price": 0.60}
 ]
 
 # Dane dotyczące publicznie dostępnych portfeli
@@ -82,13 +80,13 @@ wallet_data = [
     {"name": "Portfel D", "balance": 7}
 ]
 
-@app.route("/")
-def index():
-    return render_template("index.html", crypto_data=crypto_data)
+# @app.route("/")
+# def index():
+#     return render_template("index.html", crypto_data=crypto_data)
 
-@app.route("/portfele")
-def portfele():
-    return render_template("portfele.html", wallet_data=wallet_data)
+# @app.route("/portfele")
+# def portfele():
+#     return render_template("portfele.html", wallet_data=wallet_data)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
